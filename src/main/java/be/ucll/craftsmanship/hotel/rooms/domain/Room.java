@@ -2,10 +2,12 @@ package be.ucll.craftsmanship.hotel.rooms.domain;
 
 import be.ucll.craftsmanship.hotel.rooms.components.AirConditioning;
 import be.ucll.craftsmanship.hotel.rooms.components.Wifi;
+import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Transient;
 import java.util.Collections;
 import java.util.List;
 
@@ -15,8 +17,14 @@ public class Room {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private final Integer roomNumber;
+
+    @ElementCollection
     private final List<Long> reservationIds;
+
+    @Transient
     private final AirConditioning airConditioning;
+
+    @Transient
     private final Wifi wifi;
 
     protected Room() {
