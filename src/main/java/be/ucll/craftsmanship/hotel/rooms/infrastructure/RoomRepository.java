@@ -5,5 +5,4 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import be.ucll.craftsmanship.hotel.rooms.domain.Room;
 
 public interface RoomRepository extends JpaRepository<Room, Long> {
-
 }
