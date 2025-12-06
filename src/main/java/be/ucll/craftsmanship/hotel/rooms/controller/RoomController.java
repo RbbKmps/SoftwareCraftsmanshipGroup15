@@ -2,10 +2,9 @@ package be.ucll.craftsmanship.hotel.rooms.controller;
 
 import be.ucll.craftsmanship.hotel.rooms.application.RoomCommandHandler;
 import be.ucll.craftsmanship.hotel.rooms.application.RoomQueryHandler;
+import be.ucll.craftsmanship.hotel.rooms.commands.CreateRoomCommand;
 import be.ucll.craftsmanship.hotel.rooms.domain.Room;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -23,5 +22,10 @@ public class RoomController {
     @GetMapping
     public List<Room> getAllRooms() {
         return queryHandler.findAll();
+    }
+
+    @PostMapping
+    public Room createRoom(@RequestBody CreateRoomCommand command) {
+        return commandHandler.createRoom(command);
     }
 }

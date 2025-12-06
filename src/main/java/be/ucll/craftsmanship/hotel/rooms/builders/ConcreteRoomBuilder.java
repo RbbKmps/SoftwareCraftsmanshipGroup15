@@ -33,6 +33,7 @@ public class ConcreteRoomBuilder implements RoomBuilder {
         this.wifi = wifi;
     }
 
+    @Override
     public Room build() {
         if (roomNumber == null) {
             throw new IllegalStateException("Cannot build Room: Room Number is required.");

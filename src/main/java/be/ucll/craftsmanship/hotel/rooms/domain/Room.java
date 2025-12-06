@@ -1,7 +1,7 @@
 package be.ucll.craftsmanship.hotel.rooms.domain;
 
 import be.ucll.craftsmanship.hotel.rooms.components.AirConditioning;
-import be.ucll.craftsmanship.hotel.rooms.components.Wifi; // Corrected import
+import be.ucll.craftsmanship.hotel.rooms.components.Wifi;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -27,7 +27,7 @@ public class Room {
     }
 
     public Room(Integer roomNumber, List<Long> reservationIds,
-                AirConditioning airConditioning, Wifi wifi) {
+            AirConditioning airConditioning, Wifi wifi) {
         this.roomNumber = roomNumber;
         this.reservationIds = reservationIds != null ? reservationIds : Collections.emptyList();
         this.airConditioning = airConditioning;
@@ -48,5 +48,9 @@ public class Room {
 
     public Wifi getWifi() {
         return wifi;
+    }
+
+    public Long getId() {
+        return id;
     }
 }

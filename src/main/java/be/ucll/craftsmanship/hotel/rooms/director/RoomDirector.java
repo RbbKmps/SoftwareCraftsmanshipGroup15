@@ -3,8 +3,9 @@ package be.ucll.craftsmanship.hotel.rooms.director;
 import be.ucll.craftsmanship.hotel.rooms.builders.RoomBuilder;
 import be.ucll.craftsmanship.hotel.rooms.components.AirConditioning;
 import be.ucll.craftsmanship.hotel.rooms.components.Wifi;
+import org.springframework.stereotype.Component;
 
-
+@Component
 public class RoomDirector {
     public void constructNormalRoom(RoomBuilder builder, int number) {
         builder.setRoomNumber(number);
