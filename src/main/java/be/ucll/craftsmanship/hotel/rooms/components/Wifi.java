@@ -1,8 +1,16 @@
 package be.ucll.craftsmanship.hotel.rooms.components;
 
+import jakarta.persistence.Embeddable;
+
+@Embeddable
 public class Wifi {
-    private final String serviceProvider;
-    private final int connectionSpeedMbps;
+    private String serviceProvider;
+    private int connectionSpeedMbps;
+
+    protected Wifi() {
+        this.serviceProvider = "";
+        this.connectionSpeedMbps = 0;
+    }
 
     public Wifi(String serviceProvider, int connectionSpeedMbps) {
         this.serviceProvider = serviceProvider;
@@ -11,6 +19,10 @@ public class Wifi {
 
     public String getStatus() {
         return String.format("Connected via %s at %d Mbps.", serviceProvider, connectionSpeedMbps);
+    }
+
+    public String getServiceProvider() {
+        return serviceProvider;
     }
 
     public int getConnectionSpeedMbps() {

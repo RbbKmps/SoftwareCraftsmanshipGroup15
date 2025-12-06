@@ -3,11 +3,13 @@ package be.ucll.craftsmanship.hotel.rooms.builders;
 import be.ucll.craftsmanship.hotel.rooms.components.AirConditioning;
 import be.ucll.craftsmanship.hotel.rooms.components.Wifi;
 import be.ucll.craftsmanship.hotel.rooms.domain.Room;
+import be.ucll.craftsmanship.hotel.rooms.domain.RoomType;
 import java.util.Collections;
 import java.util.List;
 
 public class ConcreteRoomBuilder implements RoomBuilder {
     private Integer roomNumber;
+    private RoomType type;
     private List<Long> reservationIds = Collections.emptyList();
 
     private AirConditioning airConditioning;
@@ -16,6 +18,11 @@ public class ConcreteRoomBuilder implements RoomBuilder {
     @Override
     public void setRoomNumber(int roomNumber) {
         this.roomNumber = roomNumber;
+    }
+
+    @Override
+    public void setType(RoomType type) {
+        this.type = type;
     }
 
     @Override
@@ -38,6 +45,9 @@ public class ConcreteRoomBuilder implements RoomBuilder {
         if (roomNumber == null) {
             throw new IllegalStateException("Cannot build Room: Room Number is required.");
         }
-        return new Room(roomNumber, reservationIds, airConditioning, wifi);
+        if (type == null) {
+            throw new IllegalStateException("Cannot build Room: Room Type is required.");
+        }
+        return new Room(roomNumber, type, reservationIds, airConditioning, wifi);
     }
 }

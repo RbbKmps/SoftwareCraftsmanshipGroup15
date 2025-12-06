@@ -5,9 +5,9 @@ import be.ucll.craftsmanship.hotel.rooms.builders.RoomBuilder;
 import be.ucll.craftsmanship.hotel.rooms.commands.CreateRoomCommand;
 import be.ucll.craftsmanship.hotel.rooms.director.RoomDirector;
 import be.ucll.craftsmanship.hotel.rooms.domain.Room;
+import be.ucll.craftsmanship.hotel.rooms.domain.RoomType;
 import be.ucll.craftsmanship.hotel.rooms.infrastructure.RoomRepository;
 import org.springframework.stereotype.Service;
-import org.springframework.util.StringUtils;
 
 @Service
 public class RoomCommandHandler {
@@ -23,11 +23,12 @@ public class RoomCommandHandler {
     public Room createRoom(CreateRoomCommand command) {
         RoomBuilder builder = new ConcreteRoomBuilder();
 
-        String type = command.getType();
-        if (StringUtils.hasText(type) && "luxury".equalsIgnoreCase(type.trim())) {
-            roomDirector.constructLuxuryRoom(builder, command.getRoomNumber());
+        RoomType type = command.type();
+        builder.setType(type);
+        if (type == RoomType.LUXURY) {
+            roomDirector.constructLuxuryRoom(builder, command.roomNumber());
         } else {
-            roomDirector.constructNormalRoom(builder, command.getRoomNumber());
+            roomDirector.constructNormalRoom(builder, command.roomNumber());
         }
 
         Room room = builder.build();
