@@ -3,6 +3,7 @@ package be.ucll.craftsmanship.hotel.rooms.application;
 import be.ucll.craftsmanship.hotel.rooms.builders.ConcreteRoomBuilder;
 import be.ucll.craftsmanship.hotel.rooms.builders.RoomBuilder;
 import be.ucll.craftsmanship.hotel.rooms.commands.CreateRoomCommand;
+import be.ucll.craftsmanship.hotel.rooms.commands.DeleteRoomCommand;
 import be.ucll.craftsmanship.hotel.rooms.director.RoomDirector;
 import be.ucll.craftsmanship.hotel.rooms.domain.Room;
 import be.ucll.craftsmanship.hotel.rooms.domain.RoomType;
@@ -39,5 +40,13 @@ public class RoomCommandHandler {
 
         Room room = builder.build();
         return roomRepository.save(room);
+    }
+
+    public void deleteRoom(DeleteRoomCommand command) {
+        Room room = roomRepository.findByRoomNumber(command.roomNumber());
+        if (room == null) {
+            throw new IllegalArgumentException("Room number " + command.roomNumber() + " does not exist");
+        }
+        roomRepository.delete(room);
     }
 }
