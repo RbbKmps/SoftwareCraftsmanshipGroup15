@@ -21,6 +21,12 @@ public class RoomCommandHandler {
     }
 
     public Room createRoom(CreateRoomCommand command) {
+        // Check if room number already exists
+        Room existingRoom = roomRepository.findByRoomNumber(command.roomNumber());
+        if (existingRoom != null) {
+            throw new IllegalArgumentException("Room number " + command.roomNumber() + " already exists");
+        }
+
         RoomBuilder builder = new ConcreteRoomBuilder();
 
         RoomType type = command.type();

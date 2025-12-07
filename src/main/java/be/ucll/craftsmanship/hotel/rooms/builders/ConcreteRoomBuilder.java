@@ -21,9 +21,7 @@ public class ConcreteRoomBuilder implements RoomBuilder {
     }
 
     @Override
-    public void setType(RoomType type) {
-        this.type = type;
-    }
+    public void setType(RoomType type) {this.type = type;}
 
     @Override
     public void setReservationIds(List<Long> reservationIds) {
