@@ -25,7 +25,7 @@ public class RoomController {
         return queryHandler.findAll();
     }
 
-    @PostMapping("/by-number")
+    @PostMapping("/get-by-room-number")
     public Room getRoomByRoomNumber(@RequestBody GetRoomQuery query) {
         return queryHandler.getRoomByRoomNumber(query);
     }
