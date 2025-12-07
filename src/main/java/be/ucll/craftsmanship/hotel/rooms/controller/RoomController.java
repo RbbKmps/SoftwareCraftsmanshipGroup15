@@ -3,6 +3,7 @@ package be.ucll.craftsmanship.hotel.rooms.controller;
 import be.ucll.craftsmanship.hotel.rooms.application.RoomCommandHandler;
 import be.ucll.craftsmanship.hotel.rooms.application.RoomQueryHandler;
 import be.ucll.craftsmanship.hotel.rooms.commands.CreateRoomCommand;
+import be.ucll.craftsmanship.hotel.rooms.commands.DeleteRoomCommand;
 import be.ucll.craftsmanship.hotel.rooms.domain.Room;
 import be.ucll.craftsmanship.hotel.rooms.queries.GetRoomQuery;
 import org.springframework.web.bind.annotation.*;
@@ -33,5 +34,10 @@ public class RoomController {
     @PostMapping
     public Room createRoom(@RequestBody CreateRoomCommand command) {
         return commandHandler.createRoom(command);
+    }
+
+    @DeleteMapping("/delete")
+    public void deleteRoom(@RequestBody DeleteRoomCommand command) {
+        commandHandler.deleteRoom(command);
     }
 }

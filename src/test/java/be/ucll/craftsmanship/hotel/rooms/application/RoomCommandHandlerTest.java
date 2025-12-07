@@ -82,4 +82,35 @@ class RoomCommandHandlerTest {
         assertEquals("Room number 1 already exists", exception.getMessage());
         verify(roomRepository, never()).save(any(Room.class));
     }
+
+    @Test
+    void deleteExistingRoom() {
+        // Given
+        int roomNumber = 1;
+        Room existingRoom = mock(Room.class);
+
+        when(roomRepository.findByRoomNumber(roomNumber)).thenReturn(existingRoom);
+
+        // When
+        roomCommandHandler.deleteRoom(new be.ucll.craftsmanship.hotel.rooms.commands.DeleteRoomCommand(roomNumber));
+
+        // Then
+        verify(roomRepository).delete(existingRoom);
+    }
+
+    @Test
+    void deleteNonExistingRoom_shouldThrowException() {
+        // Given
+        int roomNumber = 1;
+
+        when(roomRepository.findByRoomNumber(roomNumber)).thenReturn(null);
+
+        // When & Then
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
+            roomCommandHandler.deleteRoom(new be.ucll.craftsmanship.hotel.rooms.commands.DeleteRoomCommand(roomNumber));
+        });
+
+        assertEquals("Room number 1 does not exist", exception.getMessage());
+        verify(roomRepository, never()).delete(any(Room.class));
+    }
 }
