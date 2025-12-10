@@ -30,28 +30,14 @@ public class ReservationController {
     // COMMANDS
     @PostMapping
     public ResponseEntity<Reservation> createReservation(@RequestBody CreateReservationCommand command) {
-        try {
-            Reservation reservation = commandHandler.createReservation(command);
-            return ResponseEntity.status(HttpStatus.CREATED).body(reservation);
-        } catch (RoomNotFoundException e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-        } catch (ReservationRejectedException e) {
-            return ResponseEntity.status(HttpStatus.CONFLICT).build();
-        } catch (ReservationTimeoutException e) {
-            return ResponseEntity.status(HttpStatus.REQUEST_TIMEOUT).build();
-        } catch (IllegalArgumentException e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
-        }
+        Reservation reservation = commandHandler.createReservation(command);
+        return ResponseEntity.status(HttpStatus.CREATED).body(reservation);
     }
 
     @DeleteMapping("/{id}/cancel")
     public ResponseEntity<Void> cancelReservation(@PathVariable Long id) {
-        try {
-            commandHandler.cancelReservation(new CancelReservationCommand(id));
-            return ResponseEntity.noContent().build();
-        } catch (IllegalArgumentException | IllegalStateException e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
-        }
+        commandHandler.cancelReservation(new CancelReservationCommand(id));
+        return ResponseEntity.noContent().build();
     }
 
     // QUERIES

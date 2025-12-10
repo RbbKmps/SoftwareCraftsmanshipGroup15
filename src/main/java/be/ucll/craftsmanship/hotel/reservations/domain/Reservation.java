@@ -8,6 +8,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.EnumType;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class Reservation {
@@ -85,18 +86,22 @@ public class Reservation {
         this.status = ReservationStatus.CANCELLED;
     }
 
+    @JsonIgnore
     public boolean isPending() {
         return status == ReservationStatus.PENDING;
     }
 
+    @JsonIgnore
     public boolean isConfirmed() {
         return status == ReservationStatus.CONFIRMED;
     }
 
+    @JsonIgnore
     public boolean isRejected() {
         return status == ReservationStatus.REJECTED;
     }
 
+    @JsonIgnore
     public boolean isCancelled() {
         return status == ReservationStatus.CANCELLED;
     }
